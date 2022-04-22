@@ -1,5 +1,6 @@
 package com.binance.api.client.domain.general;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -19,8 +20,20 @@ public enum FilterType {
   MARKET_LOT_SIZE,
   MAX_NUM_ICEBERG_ORDERS,
   MAX_POSITION,
+  TRAILING_DELTA,
 
   // Exchange
   EXCHANGE_MAX_NUM_ORDERS,
-  EXCHANGE_MAX_ALGO_ORDERS
+  EXCHANGE_MAX_ALGO_ORDERS,
+
+  UNKNOWN;
+
+  @JsonCreator
+  public static FilterType fromValue(String name) {
+    try {
+      return FilterType.valueOf(name);
+    } catch (Exception e) {
+      return UNKNOWN;
+    }
+  }
 }
